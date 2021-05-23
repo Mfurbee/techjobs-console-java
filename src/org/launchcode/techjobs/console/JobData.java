@@ -74,7 +74,7 @@ public class JobData {
 
             String aValue = row.get(column);
 
-            if (aValue.contains(value)) {
+            if (aValue.toLowerCase().contains(value.toLowerCase())) {
                 jobs.add(row);
             }
         }
@@ -88,11 +88,16 @@ public class JobData {
 
         ArrayList<HashMap<String, String>> jobs = new ArrayList<>();
 
+        // Iterate over the rows in the dataset
         for (HashMap<String, String> row : allJobs) {
-            for (Map.Entry<String, String> column : row.entrySet()) {
-                if(column.getValue().toLowerCase().contains(value.toLowerCase())) {
+            // See if the values in the row contain the search term
+            for (String columnValue : row.values()) {
+                if (columnValue.toLowerCase().contains(value.toLowerCase()))
+                {
+                    // If so, add the row to the collection to return
                     jobs.add(row);
                     break;
+
                 }
             }
         }
@@ -102,12 +107,13 @@ public class JobData {
     /**
      * Read in data from a CSV file and store it in a list
      */
+
     private static void loadData() {
 
-        // Only load data once
-        if (isDataLoaded) {
-            return;
-        }
+            // Only load data once
+            if (isDataLoaded) {
+                return;
+            }
 
         try {
 

@@ -38,9 +38,8 @@ public class TechJobs {
 
                 String columnChoice = getUserSelection("List", columnChoices);
 
-                if (columnChoice.equals("all")) {
-                    printJobs(JobData.findAll());
-                } else {
+                if (columnChoice.equals("all")) printJobs(JobData.findAll());
+                else {
 
                     ArrayList<String> results = JobData.findAll(columnChoice);
 
@@ -112,11 +111,16 @@ public class TechJobs {
 
     // Print a list of jobs
     private static void printJobs(ArrayList<HashMap<String, String>> someJobs) {
+     if (someJobs.size() == 0){
+         System.out.println("No records found.");
+         return;
+     }
         for (HashMap<String, String> job : someJobs) {
             System.out.println("*****");
             for (Map.Entry<String, String> column : job.entrySet()) {
                 System.out.println(column.getKey() + " : " + column.getValue());
             }
+            System.out.println("*****\n");
         }
 
 
